@@ -24,10 +24,14 @@ class Current {
     }
 
     public function getCurrentWeatherData() {
+        $json = NULL;
         $json = $this->getNetduinoData();
 
-        $json->barometer = $this->getRaspberryPiPressureData();
-        $json->temperature = $this->getRaspberryPiTemperatureData();
+        $barometer = $this->getRaspberryPiPressureData();
+        $json->barometer = $barometer;
+
+        $temperature = $this->getRaspberryPiTemperatureData();
+        $json->temperature = $temperature;
 
         date_default_timezone_set('America/Vancouver');
         $json->timestamp = date('l, F j, Y', time()) . ' at ' . date('g:i:s a', time());
@@ -43,19 +47,13 @@ class Current {
      * @return string
      */
     private function getRaspberryPiTemperatureData() {
-        $temperature = '';
-
         try {
-            $temperatureResponse = $this->client->get(self::RASPBERRYPI . '/devices/bmp/sensor/temperature/c');
-            if ($temperatureResponse->getStatusCode() == '200') {
-                $temperature = number_format($temperatureResponse->getBody()->getContents(), 1);
-            }
-
+            $temperature = file_get_contents(self::RASPBERRYPI . '/devices/bmp/sensor/temperature/c');
         } catch (RequestException $e) {
-            $temperature = '0';
+            $temperature = 'N/A';
         }
 
-        return $temperature;
+        return number_format($temperature, 1);
     }
 
     /**
@@ -64,17 +62,13 @@ class Current {
      * @return string
      */
     private function getRaspberryPiPressureData() {
-        $pressure = '';
-
         try {
-            $raspberryPiPressureResponse = $this->client->get(self::RASPBERRYPI . '/devices/bmp/sensor/pressure/pa');
-            if ($raspberryPiPressureResponse->getStatusCode() == '200') {
-                $raspberrypi = $raspberryPiPressureResponse->getBody()->getContents();
+            $barometer = file_get_contents(self::RASPBERRYPI . '/devices/bmp/sensor/pressure/pa');
 
-                // calculate adjusted barometric pressure based on elevation
-                $altimeter = 101325 * pow(((288 - 0.0065 * self::ALTITUDE) / 288), 5.256);
-                $pressure = number_format((((101325 + (int) $raspberrypi) - $altimeter) / 1000), 1);
-            }
+            // calculate adjusted barometric pressure based on elevation
+            $altimeter = 101325 * pow(((288 - 0.0065 * self::ALTITUDE) / 288), 5.256);
+            $pressure = number_format((((101325 + (int) $barometer) - $altimeter) / 1000), 1);
+
         } catch (RequestException $e) {
             $pressure = '0';
         }
@@ -88,12 +82,12 @@ class Current {
      * @return array|mixed|string
      */
     private function getNetduinoData() {
-        $netduino = 'hello';
+        $netduino = '';
 
         try {
             $netduinoResponse = $this->client->get(self::NETDUINO);
             if ($netduinoResponse->getStatusCode() == '200') {
-                $netduino = json_decode($netduinoResponse->getBody()->getContents());
+                $netduino = json_decode($netduinoResponse->getBody());
             }
         } catch (RequestException $e) {
             $netduino = array(
