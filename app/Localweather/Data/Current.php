@@ -18,9 +18,11 @@ class Current {
     const ALTITUDE = 500;
 
     protected $client;
+    protected $filesystem;
 
     public function __construct() {
         $this->client = new Client;
+        $this->filesystem = new Filesystem;
     }
 
     public function getCurrentWeatherData() {
@@ -36,9 +38,10 @@ class Current {
         date_default_timezone_set('America/Vancouver');
         $json->timestamp = date('l, F j, Y', time()) . ' at ' . date('g:i:s a', time());
 
+        $relativeHumidity = number_format(($json->humidity / (1.0546 - (0.00216 * $temperature))) / 10);
+        $json->relativehumidity = $relativeHumidity;
 
-//        echo $json . "\n";
-        dd($json);
+        $this->filesystem->put(storage_path('data/current.json'), json_encode($json));
     }
 
     /**
