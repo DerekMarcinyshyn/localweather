@@ -6,7 +6,9 @@
 	"require": {
 		"laravel/framework": "4.2.*",
         "indatus/dispatcher": "dev-master",
-        "barryvdh/laravel-ide-helper": "1.*"
+        "barryvdh/laravel-ide-helper": "1.*",
+        "aws/aws-sdk-php": "2.*",
+        "guzzlehttp/guzzle": "4.*"
 	},
     "require-dev": {
     },
@@ -18,7 +20,10 @@
 			"app/database/migrations",
 			"app/database/seeds",
 			"app/tests/TestCase.php"
-		]
+		],
+        "psr-4": {
+            "Localweather\\": "app/Localweather"
+        }
 	},
 	"scripts": {
 		"post-install-cmd": [
@@ -27,6 +32,7 @@
 		],
 		"post-update-cmd": [
 			"php artisan clear-compiled",
+            "php artisan ide-helper:generate",
 			"php artisan optimize"
 		],
 		"post-create-project-cmd": [
