@@ -4,8 +4,12 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.2.*"
+		"laravel/framework": "4.2.*",
+        "indatus/dispatcher": "dev-master",
+        "barryvdh/laravel-ide-helper": "1.*"
 	},
+    "require-dev": {
+    },
 	"autoload": {
 		"classmap": [
 			"app/commands",
