@@ -1,7 +1,6 @@
 <?php namespace Localweather\Data;
 /**
  * Current weather data
- * run as a daemon getting data every x seconds
  *
  * @author  Derek Marcinyshyn <derek@marcinyshyn.com>
  * @date    August 3, 2014
@@ -31,7 +30,6 @@ class Current {
      * @return array|mixed|null|string
      */
     public function getCurrentWeatherData() {
-        $json = NULL;
         $json = $this->getNetduinoData();
 
         $barometer = $this->getRaspberryPiPressureData();
@@ -90,7 +88,7 @@ class Current {
      * @return array|mixed|string
      */
     private function getNetduinoData() {
-        $netduino = '';
+        $netduino = new \stdClass();
 
         try {
             $netduinoResponse = $this->client->get(self::NETDUINO);
@@ -98,13 +96,11 @@ class Current {
                 $netduino = json_decode($netduinoResponse->getBody());
             }
         } catch (RequestException $e) {
-            $netduino = array(
-                'temp'              => 'N/A',
-                'humidity'          => 'N/A',
-                'relativehumidity'  => 'N/A',
-                'direction'         => 'N/A',
-                'speed'             => 'N/A'
-            );
+            $netduino->temp = '0';
+            $netduino->humidity = '0';
+            $netduino->relativehumidity = 'N/A';
+            $netduino->direction = 'N';
+            $netduino->speed = '0';
         }
 
         return $netduino;
