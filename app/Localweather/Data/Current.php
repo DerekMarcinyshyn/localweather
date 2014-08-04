@@ -25,6 +25,11 @@ class Current {
         $this->filesystem = new Filesystem;
     }
 
+    /**
+     * Get current weather data
+     *
+     * @return array|mixed|null|string
+     */
     public function getCurrentWeatherData() {
         $json = NULL;
         $json = $this->getNetduinoData();
@@ -41,7 +46,7 @@ class Current {
         $relativeHumidity = number_format(($json->humidity / (1.0546 - (0.00216 * $temperature))) / 10);
         $json->relativehumidity = $relativeHumidity;
 
-        $this->filesystem->put(storage_path('data/current.json'), json_encode($json));
+        return $json;
     }
 
     /**
