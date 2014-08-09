@@ -7,8 +7,8 @@
 		"laravel/framework": "4.2.*",
         "indatus/dispatcher": "dev-master",
         "barryvdh/laravel-ide-helper": "1.*",
-        "aws/aws-sdk-php": "2.*",
-        "guzzlehttp/guzzle": "4.*"
+        "guzzlehttp/guzzle": "4.*",
+        "intervention/image": "2.*"
 	},
     "require-dev": {
     },

@@ -1,36 +1,41 @@
 <?php
-
+/**
+ * Get latest image command
+ *
+ * @author  Derek Marcinyshyn <derek@marcinyshyn.com>
+ * @date    August 8, 2014
+ */
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use Localweather\Data\Current;
+use Localweather\Data\Image;
 
-class CurrentWeatherCommand extends Command {
+class LatestImageCommand extends Command {
 
 	/**
 	 * The console command name.
 	 *
 	 * @var string
 	 */
-	protected $name = 'localweather:current';
+	protected $name = 'localweather:latest-image';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Does not do anything!!!';
+	protected $description = 'Get the latest image from the RaspberryPi.';
 
-    protected $current;
+    protected $image;
 
 	/**
 	 * Create a new command instance.
 	 *
 	 * @return void
 	 */
-	public function __construct(Current $current)
+	public function __construct(Image $image)
 	{
-        $this->current = $current;
+        $this->image = $image;
 		parent::__construct();
 	}
 
@@ -41,7 +46,7 @@ class CurrentWeatherCommand extends Command {
 	 */
 	public function fire()
 	{
-        $this->current->getCurrentWeatherData();
+		$this->image->getLatestImage();
 	}
 
 	/**

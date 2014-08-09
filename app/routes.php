@@ -1,15 +1,7 @@
 <?php
-
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
-*/
+/**
+ * ROUTES
+ */
 
 Route::get('/', function()
 {
@@ -19,3 +11,15 @@ Route::get('/', function()
 Route::get('/current', array(
     'uses' => 'ApiController@getCurrent'
 ));
+
+Route::get('/latest-image', array(
+    'uses' => 'ApiController@getLatestImage'
+));
+
+
+
+/**
+ * EVENTS
+ */
+
+Event::listen('image.fail', 'Localweather\Notifications\ImageFailHandler');
