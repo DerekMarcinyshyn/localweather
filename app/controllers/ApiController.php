@@ -20,16 +20,4 @@ class ApiController extends BaseController {
 
         return Response::json($current->getCurrentWeatherData());
     }
-
-    /**
-     * Get the latest image from RaspberryPi
-     * it gets loaded via cron job
-     *
-     * @return mixed
-     */
-    public function getLatestImage() {
-        $image = Image::make(storage_path('data/latest.jpg'));
-
-        return $image->response();
-    }
 }
