@@ -61,7 +61,7 @@ class LatestImageCommand extends ScheduledCommand {
      */
     public function schedule(Schedulable $scheduler)
     {
-        return $scheduler->everyMinutes(5);
+        return $scheduler->everyMinutes(3);
     }
 
 
