@@ -9,8 +9,11 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Localweather\Data\Image;
+use Indatus\Dispatcher\Scheduling\ScheduledCommand;
+use Indatus\Dispatcher\Scheduling\Schedulable;
+use Indatus\Dispatcher\Drivers\Cron\Scheduler;
 
-class LatestImageCommand extends Command {
+class LatestImageCommand extends ScheduledCommand {
 
 	/**
 	 * The console command name.
@@ -26,14 +29,15 @@ class LatestImageCommand extends Command {
 	 */
 	protected $description = 'Get the latest image from the RaspberryPi.';
 
+    /**
+     * @var Localweather\Data\Image
+     */
     protected $image;
 
-	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
-	public function __construct(Image $image)
+    /**
+     * @param Image $image
+     */
+    public function __construct(Image $image)
 	{
         $this->image = $image;
 		parent::__construct();
@@ -48,6 +52,18 @@ class LatestImageCommand extends Command {
 	{
 		$this->image->getLatestImage();
 	}
+
+    /**
+     * When a command should run
+     *
+     * @param Scheduler $scheduler
+     * @return \Indatus\Dispatcher\Scheduling\Schedulable
+     */
+    public function schedule(Schedulable $scheduler)
+    {
+        return $scheduler->everyMinutes(5);
+    }
+
 
 	/**
 	 * Get the console command arguments.

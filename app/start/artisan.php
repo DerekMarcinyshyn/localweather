@@ -11,5 +11,5 @@
 |
 */
 
-Artisan::resolve('CurrentWeatherCommand');
 Artisan::resolve('LatestImageCommand');
+Artisan::resolve('CleanImageCommand');

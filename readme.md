@@ -10,7 +10,7 @@ Creates the timelapse videos and uploads to AWS S3.
 
 Latest image every 5 minutes from RaspberryPi.
 
-Latest image with no watermark for archiving and creating timelapse.
+Latest image with no watermark for archiving and creating timelapse every 10 minutes.
 
 Create video with ffmpeg.
 

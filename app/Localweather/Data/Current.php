@@ -1,27 +1,42 @@
 <?php namespace Localweather\Data;
 /**
- * Current weather data
+ * Class Current
  *
+ * @package Localweather\Data
  * @author  Derek Marcinyshyn <derek@marcinyshyn.com>
  * @date    August 3, 2014
  */
 
-use Illuminate\Filesystem\Filesystem;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
 class Current {
 
+    /**
+     * URL for Netduino
+     */
     const NETDUINO = 'http://192.168.1.50';
+
+    /**
+     * URL for RaspberryPi
+     */
     const RASPBERRYPI = 'http://192.168.1.20:7000';
+
+    /**
+     * Altitude of my house for barometric pressure compensation
+     */
     const ALTITUDE = 500;
 
+    /**
+     * @var \GuzzleHttp\Client
+     */
     protected $client;
-    protected $filesystem;
 
-    public function __construct() {
-        $this->client = new Client;
-        $this->filesystem = new Filesystem;
+    /**
+     * @param Client $client
+     */
+    public function __construct(Client $client) {
+        $this->client = $client;
     }
 
     /**

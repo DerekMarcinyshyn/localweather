@@ -6,8 +6,6 @@
  * @date    August 4, 2014
  */
 
-use Localweather\Data\Current;
-
 class ApiController extends BaseController {
 
     /**
@@ -16,8 +14,6 @@ class ApiController extends BaseController {
      * @return \Illuminate\Http\JsonResponse
      */
     public function getCurrent() {
-        $current = new Current;
-
-        return Response::json($current->getCurrentWeatherData());
+        return Response::json(App::make('Localweather\Data\Current')->getCurrentWeatherData());
     }
 }
