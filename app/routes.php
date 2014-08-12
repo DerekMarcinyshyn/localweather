@@ -16,10 +16,3 @@ Route::get('/latest-image', function() {
     return Image::make(storage_path('data/latest.jpg'))->response('jpg');
 });
 
-
-
-/**
- * EVENTS
- */
-
-Event::listen('image.fail', 'Localweather\Notifications\ImageFailHandler');
