@@ -61,27 +61,6 @@ class TimelapseCommand extends ScheduledCommand {
 	 */
 	public function fire()
 	{
-		$this->createTimelapse->start();
+		$this->createTimelapse->renameFiles();
 	}
-
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
-	protected function getArguments()
-	{
-		return array();
-	}
-
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	protected function getOptions()
-	{
-		return array();
-	}
-
 }

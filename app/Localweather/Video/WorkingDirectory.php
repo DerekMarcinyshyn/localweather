@@ -41,4 +41,23 @@ class WorkingDirectory {
             throw new WorkingDirectoryException('Error copying images to work directory: ' . $e->getTraceAsString());
         }
     }
+
+    /**
+     * Copy images over to render folder and rename img001.jpg, img002.jpg, ...
+     *
+     * @throws WorkingDirectoryException
+     */
+    public function renameFiles() {
+        try {
+            $render = storage_path('video/working/render');
+            $images = $this->filesystem->files(storage_path('video/working/images'));
+
+            for ($i = 0; $i < count($images); $i++) {
+                rename($images[$i], $render . "/img" . sprintf('%03d', $i + 1) . ".jpg");
+            }
+
+        } catch (\Exception $e) {
+            throw new WorkingDirectoryException('Error renaming files in working directory' . $e->getTraceAsString());
+        }
+    }
 } 
