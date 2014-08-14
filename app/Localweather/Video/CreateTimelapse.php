@@ -10,10 +10,12 @@ class CreateTimelapse {
 
     protected $archive;
     protected $workingDirectory;
+    protected $render;
 
-    public function __construct(Archive $archive, WorkingDirectory $workingDirectory) {
+    public function __construct(Archive $archive, WorkingDirectory $workingDirectory, Render $render) {
         $this->archive = $archive;
         $this->workingDirectory = $workingDirectory;
+        $this->render = $render;
     }
 
     /**
@@ -64,6 +66,20 @@ class CreateTimelapse {
      * render out the timelapse movies
      */
     public function render() {
-        
+        try {
+            $this->render->createStorageFolder();
+            \Event::fire('video.render.success');
+        } catch (RenderException $e) {
+            \Event::fire('video.render.fail');
+        }
+    }
+
+    /**
+     * STEP 5
+     *
+     * sync with Amazon S3
+     */
+    public function syncStorage() {
+
     }
 } 
