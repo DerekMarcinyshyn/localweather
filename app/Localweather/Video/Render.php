@@ -28,8 +28,14 @@ class Render {
      */
     protected $directory;
 
+    /**
+     * @var string
+     */
     protected $filename;
 
+    /**
+     * @param Filesystem $filesystem
+     */
     public function __construct(Filesystem $filesystem) {
         $this->filesystem = $filesystem;
         $this->imagesFolder = storage_path('video/working/render');
@@ -52,6 +58,9 @@ class Render {
         }
     }
 
+    /**
+     * Render H264 video
+     */
     private function renderH264() {
         $h264 = 'ffmpeg -r 3/1 -i ' . $this->imagesFolder . '/img%03d.jpg ' .
             '-vf "movie=' . storage_path('video/watermark/watermark.png') . '[watermark]; [in][watermark] overlay=0:0 [out]" ' .
@@ -63,9 +72,11 @@ class Render {
         $output = shell_exec($h264);
 
         echo $output . "\n";
-
     }
 
+    /**
+     * Render WebM video
+     */
     private function renderWebm() {
         $webm = 'ffmpeg -r 3/1 -i ' . $this->imagesFolder . '/img%03d.jpg ' .
             '-vf "movie=' . storage_path('video/watermark/watermark.png') . '[watermark]; [in][watermark] overlay=0:0 [out]" ' .
