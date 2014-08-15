@@ -15,4 +15,5 @@ Event::listen('video.rename-files.fail', 'Localweather\Notifications\WorkingDire
 Event::listen('video.rename-files.success', 'Localweather\Video\CreateTimelapse@render');
 
 Event::listen('video.render.fail', 'Localweather\Notifications\RenderFailHandler');
+Event::listen('video.render.success', 'Localweather\Notifications\RenderSuccessHandler');
 //Event::listen('video.render.success', '');
