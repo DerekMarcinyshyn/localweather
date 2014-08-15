@@ -10,8 +10,6 @@
 use Indatus\Dispatcher\Scheduling\ScheduledCommand;
 use Indatus\Dispatcher\Scheduling\Schedulable;
 use Indatus\Dispatcher\Drivers\Cron\Scheduler;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 use Localweather\Video\CreateTimelapse;
 
 class TimelapseCommand extends ScheduledCommand {
@@ -51,7 +49,7 @@ class TimelapseCommand extends ScheduledCommand {
 	 */
 	public function schedule(Schedulable $scheduler)
 	{
-		return $scheduler;
+		return $scheduler->daily()->hours(22)->minutes(30);
 	}
 
 	/**
@@ -61,6 +59,6 @@ class TimelapseCommand extends ScheduledCommand {
 	 */
 	public function fire()
 	{
-		$this->createTimelapse->render();
+		$this->createTimelapse->start();
 	}
 }
