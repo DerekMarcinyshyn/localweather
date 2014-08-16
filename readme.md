@@ -25,7 +25,10 @@ Sync with AWS S3.
 
 return [
     'GMAIL_USERNAME'    => 'user@gmail.com',
-    'GMAIL_PASSWORD'    => 'secret'
+    'GMAIL_PASSWORD'    => 'secret',
+    'AWS_KEY'           => 'aws-key',
+    'AWS_SECRET'        => 'aws-secret',
+    'AWS_BUCKET'        => 'aws-bucket'
 ];
 
 ```
