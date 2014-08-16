@@ -124,6 +124,7 @@ return array(
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
         'Indatus\Dispatcher\ServiceProvider',
         'Intervention\Image\ImageServiceProvider',
+        'Aws\Laravel\AwsServiceProvider',
 
 	),
 
@@ -191,7 +192,8 @@ return array(
 		'URL'               => 'Illuminate\Support\Facades\URL',
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
-        'Image'             => 'Intervention\Image\Facades\Image'
+        'Image'             => 'Intervention\Image\Facades\Image',
+        'AWS'               => 'Aws\Laravel\AwsFacade',
 	),
 
 );

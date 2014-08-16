@@ -8,14 +8,40 @@
 
 class CreateTimelapse {
 
+    /**
+     * @var Archive
+     */
     protected $archive;
+    /**
+     * @var WorkingDirectory
+     */
     protected $workingDirectory;
+    /**
+     * @var Render
+     */
     protected $render;
+    /**
+     * @var Aws
+     */
+    protected $aws;
+    /**
+     * @var CleanUpPostRender
+     */
+    protected $cleanUpPostRender;
 
-    public function __construct(Archive $archive, WorkingDirectory $workingDirectory, Render $render) {
+    /**
+     * @param Archive $archive
+     * @param WorkingDirectory $workingDirectory
+     * @param Render $render
+     * @param Aws $aws
+     * @param CleanUpPostRender $cleanUpPostRender
+     */
+    public function __construct(Archive $archive, WorkingDirectory $workingDirectory, Render $render, Aws $aws, CleanUpPostRender $cleanUpPostRender) {
         $this->archive = $archive;
         $this->workingDirectory = $workingDirectory;
         $this->render = $render;
+        $this->aws = $aws;
+        $this->cleanUpPostRender = $cleanUpPostRender;
     }
 
     /**
@@ -79,7 +105,26 @@ class CreateTimelapse {
      *
      * sync with Amazon S3
      */
-    public function syncStorage() {
+    public function uploadVideos() {
+        try {
+            $this->aws->uploadVideos();
+            \Event::fire('video.aws.success');
+        } catch (AwsException $e) {
+            \Event::fire('video.aws.fail');
+        }
+    }
 
+    /**
+     * STEP 6
+     *
+     * cleanup working/render directories
+     */
+    public function cleanUpPostRender() {
+        try {
+            $this->cleanUpPostRender->emptyDirectory();
+            \Event::fire('video.post.render.clean.up.success');
+        } catch (CleanUpPostRenderException $e) {
+            \Event::fire('video.post.render.clean.up.fail');
+        }
     }
 } 

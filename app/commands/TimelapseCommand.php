@@ -30,12 +30,10 @@ class TimelapseCommand extends ScheduledCommand {
 
     protected $createTimelapse;
 
-	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
-	public function __construct(CreateTimelapse $createTimelapse)
+    /**
+     * @param CreateTimelapse $createTimelapse
+     */
+    public function __construct(CreateTimelapse $createTimelapse)
 	{
         $this->createTimelapse = $createTimelapse;
 		parent::__construct();

@@ -15,5 +15,10 @@ Event::listen('video.rename-files.fail', 'Localweather\Notifications\WorkingDire
 Event::listen('video.rename-files.success', 'Localweather\Video\CreateTimelapse@render');
 
 Event::listen('video.render.fail', 'Localweather\Notifications\RenderFailHandler');
-Event::listen('video.render.success', 'Localweather\Notifications\RenderSuccessHandler');
-//Event::listen('video.render.success', '');
+Event::listen('video.render.success', 'Localweather\Notifications\RenderSuccessHandler'); // send success email
+Event::listen('video.render.success', 'Localweather\Video\CreateTimelapse@uploadVideos');
+
+Event::listen('video.aws.fail', 'Localweather\Notifications\AwsFailHandler');
+Event::listen('video.aws.success', 'Localweather\Notifications\AwsSuccessHandler'); // send success email
+
+Event::listen('video.post.render.clean.up.fail', 'Localweather\Notifications\PostRenderCleanUpFailHandler');

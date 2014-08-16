@@ -62,7 +62,7 @@ class Render {
      * Render H264 video
      */
     private function renderH264() {
-        $h264 = 'ffmpeg -r 4/1 -i ' . $this->imagesFolder . '/img%03d.jpg ' .
+        $h264 = 'ffmpeg -r 6/1 -i ' . $this->imagesFolder . '/img%03d.jpg ' .
             '-vf "movie=' . storage_path('video/watermark/watermark.png') . '[watermark]; [in][watermark] overlay=0:0 [out]" ' .
             '-c:v libx264 ' .
             '-r 24 ' .
@@ -78,7 +78,7 @@ class Render {
      * Render WebM video
      */
     private function renderWebm() {
-        $webm = 'ffmpeg -r 4/1 -i ' . $this->imagesFolder . '/img%03d.jpg ' .
+        $webm = 'ffmpeg -r 6/1 -i ' . $this->imagesFolder . '/img%03d.jpg ' .
             '-vf "movie=' . storage_path('video/watermark/watermark.png') . '[watermark]; [in][watermark] overlay=0:0 [out]" ' .
             '-c:v libvpx ' .
             '-r 24 ' .
