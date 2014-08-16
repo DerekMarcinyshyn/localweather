@@ -16,3 +16,7 @@ Route::get('/latest-image', function() {
     return Image::make(storage_path('data/latest.jpg'))->response('jpg');
 });
 
+
+Route::get('info', function() {
+    return phpinfo();
+});
