@@ -74,7 +74,7 @@ class Image {
      */
     public function getCleanImage() {
         try {
-            $response = $this->client->get(self::RASPBERRYPI . '/original.jpg');
+            $response = $this->client->get(self::RASPBERRYPI . '/origina.jpg');
             if ($response->getStatusCode() == '200') {
                 $image = $response->getBody();
 
