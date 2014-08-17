@@ -52,6 +52,7 @@ class Current {
 
         $temperature = $this->getRaspberryPiTemperatureData();
         $json->temperature = $temperature;
+        $json->bmp_temperature = $temperature;
 
         date_default_timezone_set('America/Vancouver');
         $json->timestamp = date('l, F j, Y', time()) . ' at ' . date('g:i:s a', time());
