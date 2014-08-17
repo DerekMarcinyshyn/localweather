@@ -48,6 +48,7 @@ class Aws {
         try {
             $this->client->uploadDirectory($directory, $bucket, $prefix, $options);
         } catch (\Exception $e) {
+            Log::error($e);
             throw new AwsException($e);
         }
     }
