@@ -57,6 +57,6 @@ class TimelapseCommand extends ScheduledCommand {
 	 */
 	public function fire()
 	{
-		$this->createTimelapse->uploadVideos();
+		$this->createTimelapse->start();
 	}
 }

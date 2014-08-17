@@ -7,7 +7,7 @@
  */
 
 
-class AwsFailHandler {
+class AwsSuccessHandler {
 
     /**
      * Send simple fail email
