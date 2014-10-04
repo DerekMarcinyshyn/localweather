@@ -58,6 +58,9 @@ class Current {
         $json->timestamp = date('l, F j, Y', time()) . ' at ' . date('g:i:s a', time());
 
         $relativeHumidity = number_format(($json->humidity / (1.0546 - (0.00216 * $temperature))) / 10);
+        if ($relativeHumidity == 0) {
+            $relativeHumidity = 60;
+        }
         $json->relativehumidity = $relativeHumidity;
 
         return $json;
