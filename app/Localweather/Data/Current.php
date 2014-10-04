@@ -57,12 +57,6 @@ class Current {
         date_default_timezone_set('America/Vancouver');
         $json->timestamp = date('l, F j, Y', time()) . ' at ' . date('g:i:s a', time());
 
-        $relativeHumidity = number_format(($json->humidity / (1.0546 - (0.00216 * $temperature))) / 10);
-        if ($relativeHumidity == 0) {
-            $relativeHumidity = 60;
-        }
-        $json->relativehumidity = $relativeHumidity;
-
         return $json;
     }
 
@@ -117,7 +111,7 @@ class Current {
         } catch (RequestException $e) {
             $netduino->temp = '0';
             $netduino->humidity = '0';
-            $netduino->relativehumidity = 'N/A';
+            $netduino->relativehumidity = '0';
             $netduino->direction = 'N';
             $netduino->speed = '0';
         }
