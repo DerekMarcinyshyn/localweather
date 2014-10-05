@@ -47,15 +47,16 @@ class Current {
     public function getCurrentWeatherData() {
         $json = $this->getNetduinoData();
 
-        $barometer = $this->getRaspberryPiPressureData();
-        $json->barometer = $barometer;
+        if ($json->relativehumidity == 0)
+        {
+            sleep(3);
+            $json = $this->getNetduinoData();
 
-        $temperature = $this->getRaspberryPiTemperatureData();
-        $json->temperature = $temperature;
-        $json->bmp_temperature = $temperature;
+            $this->addRaspberryPiData($json);
 
-        date_default_timezone_set('America/Vancouver');
-        $json->timestamp = date('l, F j, Y', time()) . ' at ' . date('g:i:s a', time());
+        } else {
+            $this->addRaspberryPiData($json);
+        }
 
         return $json;
     }
@@ -117,5 +118,21 @@ class Current {
         }
 
         return $netduino;
+    }
+
+    /**
+     * @param $json
+     */
+    private function addRaspberryPiData($json)
+    {
+        $barometer = $this->getRaspberryPiPressureData();
+        $json->barometer = $barometer;
+
+        $temperature = $this->getRaspberryPiTemperatureData();
+        $json->temperature = $temperature;
+        $json->bmp_temperature = $temperature;
+
+        date_default_timezone_set('America/Vancouver');
+        $json->timestamp = date('l, F j, Y', time()) . ' at ' . date('g:i:s a', time());
     }
 } 
