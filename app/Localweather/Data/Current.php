@@ -51,12 +51,9 @@ class Current {
         {
             sleep(3);
             $json = $this->getNetduinoData();
-
-            $this->addRaspberryPiData($json);
-
-        } else {
-            $this->addRaspberryPiData($json);
         }
+
+        $this->addRaspberryPiData($json);
 
         return $json;
     }
