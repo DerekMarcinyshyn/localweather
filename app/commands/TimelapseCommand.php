@@ -28,6 +28,9 @@ class TimelapseCommand extends ScheduledCommand {
 	 */
 	protected $description = 'Create the daily timelapse video and archive images.';
 
+    /**
+     * @var CreateTimelapse
+     */
     protected $createTimelapse;
 
     /**
