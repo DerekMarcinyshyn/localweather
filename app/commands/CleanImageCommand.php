@@ -3,8 +3,6 @@
 use Indatus\Dispatcher\Scheduling\ScheduledCommand;
 use Indatus\Dispatcher\Scheduling\Schedulable;
 use Indatus\Dispatcher\Drivers\Cron\Scheduler;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 use Localweather\Data\Image;
 
 class CleanImageCommand extends ScheduledCommand {
@@ -47,7 +45,7 @@ class CleanImageCommand extends ScheduledCommand {
 	 */
 	public function schedule(Schedulable $scheduler)
 	{
-		return $scheduler->setSchedule('*/5', [7,8,9,10,11,12,13,14,15,16,17], '*', '*', '*');
+		return $scheduler->setSchedule('*/5', [5,6,7,8,9,10,11,12,13,14,15], '*', '*', '*');
 	}
 
 	/**
@@ -58,25 +56,5 @@ class CleanImageCommand extends ScheduledCommand {
 	public function fire()
 	{
 		$this->image->getCleanImage();
-	}
-
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
-	protected function getArguments()
-	{
-		return array();
-	}
-
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	protected function getOptions()
-	{
-		return array();
 	}
 }
