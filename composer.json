@@ -5,7 +5,7 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.2.*",
-        "indatus/dispatcher": "dev-master",
+        "indatus/dispatcher": "1.*",
         "barryvdh/laravel-ide-helper": "1.*",
         "guzzlehttp/guzzle": "4.*",
         "intervention/image": "2.*",
