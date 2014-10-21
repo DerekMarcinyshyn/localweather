@@ -34,11 +34,15 @@ class WorkingDirectory {
         try {
             $destination = storage_path('video/working/images');
             $directory = storage_path('video/images');
-            $this->filesystem->copyDirectory($directory, $destination);
-            $this->filesystem->cleanDirectory($directory);
+
+            if ($result = $this->filesystem->copyDirectory($directory, $destination)) {
+                $this->filesystem->cleanDirectory($directory);
+            } else {
+                throw new WorkingDirectoryException();
+            }
 
         } catch (\Exception $e) {
-            throw new WorkingDirectoryException('Error copying images to work directory: ' . $e->getTraceAsString());
+            throw new WorkingDirectoryException($e);
         }
     }
 
