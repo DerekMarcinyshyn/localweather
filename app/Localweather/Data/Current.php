@@ -128,8 +128,19 @@ class Current {
         $temperature = $this->getRaspberryPiTemperatureData();
         $json->temperature = $temperature;
         $json->bmp_temperature = $temperature;
+        $json->relativehumidity = $this->recalculateRelativeHumidity($temperature, $this->getNetduinoData());
 
         date_default_timezone_set('America/Vancouver');
         $json->timestamp = date('l, F j, Y', time()) . ' at ' . date('g:i:s a', time());
+    }
+
+    /**
+     * @param $temperature
+     * @param $netduino
+     * @return float
+     */
+    private function recalculateRelativeHumidity($temperature, $netduino)
+    {
+        return number_format(($netduino->humidity / (1.546 - (0.00216 * $temperature))) / 10);
     }
 } 
