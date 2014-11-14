@@ -141,6 +141,6 @@ class Current {
      */
     private function recalculateRelativeHumidity($temperature, $netduino)
     {
-        return number_format(($netduino->humidity / (1.546 - (0.00216 * $temperature))) / 10);
+        return number_format(($netduino->humidity / (1.0546 - (0.00216 * $temperature))) / 10);
     }
 } 
