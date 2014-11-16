@@ -130,6 +130,11 @@ class Current {
         $json->bmp_temperature = $temperature;
         $json->relativehumidity = $this->recalculateRelativeHumidity($temperature, $this->getNetduinoData());
 
+        if ($json->relativehumidity == 0) {
+            sleep(3);
+            $json->relativehumidity = $this->recalculateRelativeHumidity($temperature, $this->getNetduinoData());
+        }
+
         date_default_timezone_set('America/Vancouver');
         $json->timestamp = date('l, F j, Y', time()) . ' at ' . date('g:i:s a', time());
     }
