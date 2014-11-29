@@ -51,13 +51,7 @@ class Current {
      */
     public function getCurrentWeatherData() {
         $this->json = $this->getNetduinoData();
-
-        if ($this->json->relativehumidity == 0)
-        {
-            sleep(2);
-            $this->json = $this->getNetduinoData();
-        }
-
+        
         return $this->addRaspberryPiData($this->json);
     }
 
@@ -105,11 +99,13 @@ class Current {
         $netduino = new \stdClass();
 
         try {
-            $netduinoResponse = $this->client->get(self::NETDUINO);
+            $netduinoRequest = $this->client->createRequest('GET', self::NETDUINO);
+            $netduinoResponse = $this->client->send($netduinoRequest);
+
             if ($netduinoResponse->getStatusCode() == '200') {
                 $netduino = json_decode($netduinoResponse->getBody());
             }
-        } catch (RequestException $e) {
+        } catch (\Exception $e) {
             $netduino->temp = '0';
             $netduino->humidity = '0';
             $netduino->relativehumidity = '0';
