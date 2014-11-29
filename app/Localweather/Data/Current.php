@@ -33,6 +33,11 @@ class Current {
     protected $client;
 
     /**
+     * @var string
+     */
+    protected $json;
+
+    /**
      * @param Client $client
      */
     public function __construct(Client $client) {
@@ -45,17 +50,15 @@ class Current {
      * @return array|mixed|null|string
      */
     public function getCurrentWeatherData() {
-        $json = $this->getNetduinoData();
+        $this->json = $this->getNetduinoData();
 
-        if ($json->relativehumidity == 0)
+        if ($this->json->relativehumidity == 0)
         {
             sleep(2);
-            $json = $this->getNetduinoData();
+            $this->json = $this->getNetduinoData();
         }
 
-        $this->addRaspberryPiData($json);
-
-        return $json;
+        return $this->addRaspberryPiData($this->json);
     }
 
     /**
@@ -110,7 +113,7 @@ class Current {
             $netduino->temp = '0';
             $netduino->humidity = '0';
             $netduino->relativehumidity = '0';
-            $netduino->direction = 'N';
+            $netduino->direction = 'S';
             $netduino->speed = '0';
         }
 
@@ -118,7 +121,10 @@ class Current {
     }
 
     /**
+     * Inject the RaspberryPi data
+     *
      * @param $json
+     * @return mixed
      */
     private function addRaspberryPiData($json)
     {
@@ -137,6 +143,8 @@ class Current {
 
         date_default_timezone_set('America/Vancouver');
         $json->timestamp = date('l, F j, Y', time()) . ' at ' . date('g:i:s a', time());
+
+        return $json;
     }
 
     /**

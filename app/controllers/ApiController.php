@@ -30,6 +30,5 @@ class ApiController extends BaseController {
      */
     public function getCurrent() {
         return Response::json($this->current->getCurrentWeatherData());
-//        return Response::json(App::make('Localweather\Data\Current')->getCurrentWeatherData());
     }
 }
