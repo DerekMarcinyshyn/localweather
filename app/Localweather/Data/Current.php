@@ -51,7 +51,7 @@ class Current {
      */
     public function getCurrentWeatherData() {
         $this->json = $this->getNetduinoData();
-        
+
         return $this->addRaspberryPiData($this->json);
     }
 
@@ -124,9 +124,7 @@ class Current {
      */
     private function addRaspberryPiData($json)
     {
-        $barometer = $this->getRaspberryPiPressureData();
-        $json->barometer = $barometer;
-
+        $json->barometer = $this->getRaspberryPiPressureData();
         $temperature = $this->getRaspberryPiTemperatureData();
         $json->temperature = $temperature;
         $json->bmp_temperature = $temperature;
