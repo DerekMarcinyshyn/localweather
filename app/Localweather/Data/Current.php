@@ -49,7 +49,7 @@ class Current {
 
         if ($json->relativehumidity == 0)
         {
-            sleep(3);
+            sleep(2);
             $json = $this->getNetduinoData();
         }
 
@@ -131,7 +131,7 @@ class Current {
         $json->relativehumidity = $this->recalculateRelativeHumidity($temperature, $this->getNetduinoData());
 
         if ($json->relativehumidity == 0) {
-            sleep(3);
+            sleep(2);
             $json->relativehumidity = $this->recalculateRelativeHumidity($temperature, $this->getNetduinoData());
         }
 
