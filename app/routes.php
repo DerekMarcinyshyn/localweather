@@ -16,6 +16,6 @@ Route::get('latest-image', function() {
     return Image::make(storage_path('data/latest.jpg'))->response('jpg');
 });
 
-//Route::get('weather-station/latest.jpg', function() {
-//    return Image::make(storage_path('data/latest.jpg'))->response('jpg');
-//});
+Route::get('weather-station/latest.jpg', function() {
+    return Image::make(storage_path('data/latest.jpg'))->response('jpg');
+});
