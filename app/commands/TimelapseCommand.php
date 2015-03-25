@@ -50,7 +50,7 @@ class TimelapseCommand extends ScheduledCommand {
 	 */
 	public function schedule(Schedulable $scheduler)
 	{
-		return $scheduler->daily()->hours(21)->minutes(30);
+		return $scheduler->daily()->hours(22)->minutes(30);
 	}
 
 	/**
