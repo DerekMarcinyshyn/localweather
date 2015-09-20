@@ -97,6 +97,7 @@ class Current {
      */
     private function getNetduinoData() {
         $netduino = new \stdClass();
+        $netduino->humidity = '0';
 
         try {
             $netduinoRequest = $this->client->createRequest('GET', self::NETDUINO);
