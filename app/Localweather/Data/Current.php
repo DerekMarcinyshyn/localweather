@@ -97,7 +97,6 @@ class Current {
      */
     private function getNetduinoData() {
         $netduino = new \stdClass();
-        $netduino->humidity = '0';
 
         try {
             $netduinoRequest = $this->client->createRequest('GET', self::NETDUINO);
@@ -149,6 +148,6 @@ class Current {
      */
     private function recalculateRelativeHumidity($temperature, $netduino)
     {
-        return number_format(($netduino->humidity / (1.0546 - (0.00216 * $temperature))) / 10);
+        return number_format(((int) $netduino->humidity / (1.0546 - (0.00216 * $temperature))) / 10);
     }
 } 
