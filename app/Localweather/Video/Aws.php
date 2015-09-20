@@ -52,4 +52,8 @@ class Aws {
             throw new AwsException($e);
         }
     }
+
+    public function test() {
+        return 'ok';
+    }
 } 
