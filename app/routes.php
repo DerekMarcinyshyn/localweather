@@ -13,9 +13,19 @@ Route::get('current', array(
 ));
 
 Route::get('latest-image', function() {
-    return Image::make(storage_path('data/latest.jpg'))->response('jpg');
+    try {
+        return Image::make(storage_path('data/latest.jpg'))->response('jpg');
+    } catch (\Exception $e) {
+        \Log::error($e->getMessage());
+        return false;
+    }
 });
 
 Route::get('weather-station/latest.jpg', function() {
-    return Image::make(storage_path('data/latest.jpg'))->response('jpg');
+    try {
+        return Image::make(storage_path('data/latest.jpg'))->response('jpg');
+    } catch (\Exception $e) {
+        \Log::error($e->getMessage());
+        return false;
+    }
 });
