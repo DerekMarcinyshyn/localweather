@@ -131,14 +131,30 @@ class Current {
         $json->relativehumidity = $this->recalculateRelativeHumidity($temperature, $this->getNetduinoData());
 
         if ($json->relativehumidity == 0) {
-            sleep(2);
-            $json->relativehumidity = $this->recalculateRelativeHumidity($temperature, $this->getNetduinoData());
+            $filename = storage_path('data/data.json');
+            $oldData = json_decode(file_get_contents($filename));
+            $json->relativehumidity = $oldData->relativehumidity;
         }
 
         date_default_timezone_set('America/Vancouver');
         $json->timestamp = date('l, F j, Y', time()) . ' at ' . date('g:i:s a', time());
 
+        $this->saveDataToDisk($json);
+
         return $json;
+    }
+
+    /**
+     * Save data to disk
+     *
+     * @param $json
+     */
+    private function saveDataToDisk($json)
+    {
+        $filename = storage_path('data/data.json');
+        $fileHandler = fopen($filename, "w");
+        fwrite($fileHandler, json_encode($json));
+        fclose($fileHandler);
     }
 
     /**
