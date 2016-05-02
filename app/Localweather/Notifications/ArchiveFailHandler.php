@@ -18,8 +18,8 @@ class ArchiveFailHandler {
         );
 
         \Mail::send('emails.notifications.fail', $mailData, function($message) {
-            $message->from('revyweather@gmail.com', 'Local weather server');
-            $message->to('derek@revelstokewebhosting.com', 'Derek Marcinyshyn')->subject('Archiving daily images failed.');
+            $message->from('info@revyweather.ca', 'Local weather server');
+            $message->to('derek@marcinyshyn.com', 'Derek Marcinyshyn')->subject('Archiving daily images failed.');
         });
     }
 } 
